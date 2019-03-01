@@ -12,7 +12,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import roihunter.task.exceptions.RequestFailException;
-import roihunter.task.trello_resources.TrelloList;
 import roihunter.task.trello_resources.TrelloResource;
 
 import java.io.IOException;
@@ -33,12 +32,12 @@ public class ListTests {
     public void init() throws UnirestException, IOException, RequestFailException {
         manager = new EnvironmentManager("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         webDriver = manager.getWebDriver();
-        resourcesManager = new APIResourcesManager("7ff37dbe95b9d233eddf6966da5308c4",
-                "3c86c6a00ad0ae17e693442d49583d777fbcdf19f409a1035d3b3e81d4ebefa9");
+        resourcesManager = new APIResourcesManager("your key",
+                "your token");
         listCreator = new ListCreator(webDriver);
 
         TrelloManager.goToHomepage(webDriver);
-        TrelloManager.logIn("MichaelaBajan@gmail.com", "jebgaw-zumSy9-supjeg", webDriver);
+        TrelloManager.logIn("your trello account", "your trello password", webDriver);
         //after logging in the web driver is on trello homepage
 
         RequestConfig globalConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.IGNORE_COOKIES).build();

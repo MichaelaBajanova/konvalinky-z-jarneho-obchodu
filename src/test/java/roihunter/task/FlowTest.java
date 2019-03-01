@@ -38,14 +38,14 @@ public class FlowTest {
     public void init() {
         manager = new EnvironmentManager("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         webDriver = manager.getWebDriver();
-        resourcesManager = new APIResourcesManager("7ff37dbe95b9d233eddf6966da5308c4",
-                "3c86c6a00ad0ae17e693442d49583d777fbcdf19f409a1035d3b3e81d4ebefa9");
+        resourcesManager = new APIResourcesManager("your key",
+                "your token");
         boardCreator = new BoardCreator(webDriver);
         listCreator = new ListCreator(webDriver);
         cardCreator = new CardCreator(webDriver, resourcesManager);
 
         TrelloManager.goToHomepage(webDriver);
-        TrelloManager.logIn("MichaelaBajan@gmail.com", "jebgaw-zumSy9-supjeg", webDriver);
+        TrelloManager.logIn("your trello account", "your trello password", webDriver);
         //after logging in the web driver is on trello homepage
 
         RequestConfig globalConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.IGNORE_COOKIES).build();
@@ -69,7 +69,7 @@ public class FlowTest {
         cardCreator.addDescription("My test list", "My test description");
         cardCreator.addComment("My test list", "My test comment");
         cardCreator.addChecklist("My test list", "My test checklist", items);
-        cardCreator.addImageAttachment("My test list", "/Users/michaelab/Desktop/puppy.jpg");
+        cardCreator.addImageAttachment("My test list", "path to your file");
         TrelloManager.goToHomepage(webDriver);
 
         TrelloBoard board = resourcesManager.getBoard(boardId);
@@ -84,7 +84,7 @@ public class FlowTest {
         Assert.assertNotNull(cardCreated);
 
         List<TrelloResource> attachments = resourcesManager.getAttachmentsInCard(cardCreated.getId());
-        TrelloResource attachmentCreated = checkResourceUsingName(attachments, "puppy.jpg");
+        TrelloResource attachmentCreated = checkResourceUsingName(attachments, "name of your file");
         Assert.assertNotNull(attachmentCreated);
 
         List<TrelloResource> checklists = resourcesManager.getChecklistsInCard(cardCreated.getId());
@@ -109,17 +109,6 @@ public class FlowTest {
         }
         return null;
     }
-
-//    public void deleteBoards() throws RequestFailException, UnirestException {
-//        for (String boardId : boardIds) {
-//            resourcesManager.deleteBoard(boardId);
-//        }
-//    }
-
-//    @AfterGroups(groups = {"board-test", "list-test", "card-test"})
-//    public void cleanUp() throws RequestFailException, UnirestException {
-//        resourcesManager.deleteBoard(boardId);
-//    }
 
     @AfterTest
     public void end() throws UnirestException, RequestFailException {

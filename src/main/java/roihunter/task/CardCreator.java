@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import roihunter.task.exceptions.ListNotFoundException;
 import roihunter.task.exceptions.RequestFailException;
-import roihunter.task.trello_resources.TrelloList;
 import roihunter.task.trello_resources.TrelloResource;
 import roihunter.task.utils.UrlParser;
 
@@ -70,6 +69,7 @@ public class CardCreator extends ResourceCreator {
     /**
      * Adds card description.
      * Has to be called when web driver is on board page.
+     * @param inList
      * @param description
      */
     public void addDescription(String inList, String description) throws IOException, UnirestException, ListNotFoundException, RequestFailException {
@@ -93,6 +93,7 @@ public class CardCreator extends ResourceCreator {
     /**
      * Adds comment to card.
      * Has to be called when web driver is on board page.
+     * @param inList
      * @param comment
      */
     public void addComment(String inList, String comment) throws IOException, UnirestException, ListNotFoundException, RequestFailException {
@@ -116,6 +117,7 @@ public class CardCreator extends ResourceCreator {
     /**
      * Adds image attachment to card.
      * Has to be called when web driver is on board page.
+     * @param inList
      * @param pathToImage
      */
     public void addImageAttachment(String inList, String pathToImage) throws IOException, UnirestException, ListNotFoundException, RequestFailException {
@@ -136,6 +138,13 @@ public class CardCreator extends ResourceCreator {
         TrelloManager.closeCardOptions(super.getWebDriver());
     }
 
+    /**
+     * Adds checklist to card.
+     * Has to be called when web driver is on board page.
+     * @param inList
+     * @param checklistName
+     * @param checklistItems
+     */
     public void addChecklist(String inList, String checklistName, List<String> checklistItems) throws IOException, UnirestException, ListNotFoundException, RequestFailException {
         String boardId = UrlParser.getIdFromUrl(super.getWebDriver().getCurrentUrl());
         List<TrelloResource> listsInBoard = resourcesManager.getListsInBoard(boardId);
@@ -166,4 +175,3 @@ public class CardCreator extends ResourceCreator {
         TrelloManager.closeCardOptions(super.getWebDriver());
     }
 }
-///Users/michaelab/Desktop/puppy.jpg
